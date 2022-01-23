@@ -3,13 +3,14 @@ import React from "react";
 export default function CardDetails({ name = "peru" }) {
   const [results, setResults] = React.useState([]);
   console.log("card-details", name);
+
   React.useEffect(() => {
     fetch(`https://restcountries.com/v2/name/${name}`)
       .then((response) => response.json())
       .then((json) => setResults(json));
 
     console.log("card-details", results);
-  }, [name]);
+  }, [name, results]);
 
   return (
     <div className="card-details">
