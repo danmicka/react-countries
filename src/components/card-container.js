@@ -1,7 +1,11 @@
 import React from "react";
 import Card from "./card";
 
-export default function CardsContainer({ country, region = "All" }) {
+export default function CardsContainer({
+  country,
+  region = "All",
+  onCountrySelect,
+}) {
   const [countries, setCountries] = React.useState([]);
 
   function getCountries(ctrylist, name, region) {
@@ -13,12 +17,12 @@ export default function CardsContainer({ country, region = "All" }) {
             (ctry) => ctry.region.toLowerCase() === region.toLowerCase()
           )
         : ctrylist;
-
+    /*
     console.log(
       "car-container-listCtryFilteredByRegion:",
       listCtryFilteredByRegion
     );
-
+*/
     return name !== ""
       ? listCtryFilteredByRegion.filter((ctry) =>
           ctry.name.toLowerCase().startsWith(name.toLowerCase())
@@ -36,6 +40,10 @@ export default function CardsContainer({ country, region = "All" }) {
     //console.log("country container:", country);
   }, [country, region]);
 
+  const handleCountrySelect = (countryCode) => {
+    onCountrySelect(countryCode);
+  };
+
   return (
     <div className="card-container">
       {countries.map((country, index) => (
@@ -46,6 +54,7 @@ export default function CardsContainer({ country, region = "All" }) {
           population={country.population}
           region={country.region}
           capital={country.capital}
+          onCountrySelect={handleCountrySelect}
         ></Card>
       ))}
     </div>

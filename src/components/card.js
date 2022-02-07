@@ -6,10 +6,14 @@ export default function Card({
   population,
   region,
   capital,
-  cardToCardContainer,
+  onCountrySelect,
 }) {
+  const handleCountrySelect = (countryCode) => {
+    onCountrySelect(countryCode);
+  };
+
   return (
-    <div className="card">
+    <div className="card" onClick={() => handleCountrySelect(name)}>
       <img src={flag} alt={name} width="326" height="196" className="img"></img>
       <h2>{name}</h2>
       <p>

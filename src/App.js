@@ -8,10 +8,10 @@ import CardDetails from "./components/card-details";
 
 function App() {
   const [country, setCountry] = React.useState("");
+  const [selectedCountry, setSelectedCountry] = React.useState("");
   const [region, setRegion] = React.useState("All");
   const [isDarkmode, setIsDarkmode] = React.useState(false);
   const [darkModeClass, setDarkModeClass] = React.useState("");
-  const isDetails = false;
 
   const changeCountry = (country) => {
     setCountry(country);
@@ -33,20 +33,20 @@ function App() {
     console.log("darkModeClas:", darkModeClass);
   };
 
+  const handleCountrySelect = (countryCode) => {
+    setSelectedCountry(countryCode);
+  };
+
+  const handleReset = () => {
+    setSelectedCountry(null);
+  };
+
   return (
     <>
       <Headers changeDarkmode={changeDarkmode} className={darkModeClass} />
-      {isDetails ? (
+      {selectedCountry ? (
         <>
-          <SearchBlock
-            country={country}
-            changeCountry={changeCountry}
-            region={region}
-            changeRegion={changeRegion}
-            isDarkmode={isDarkmode}
-            className={darkModeClass}
-          />
-          <CardDetails />
+          <CardDetails countryCode={selectedCountry} reset={handleReset} />
         </>
       ) : (
         <>
@@ -62,6 +62,7 @@ function App() {
             country={country}
             region={region}
             className={darkModeClass}
+            onCountrySelect={handleCountrySelect}
           />
         </>
       )}
